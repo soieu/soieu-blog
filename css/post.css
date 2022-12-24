@@ -18,6 +18,7 @@ header {
 	z-index: 1;
 	background-color: white;
 }
+
 .main-navigation>a {
 	display: block; /* a태그는 글자성격 = inline */
 	float: left;
@@ -60,18 +61,7 @@ a:hover {
 	align-items: center;
 }
 
-.posts {
-	width: 80%;
-	padding: 10px;
-}
-.post {
-	padding: 5px;
-	border-radius: 10px;
-	padding: 10px;
-	border: 2px solid black;
-	margin: 10px;
+.post-content {
+	padding : 20px;
 }
 
-.post-preview {
-	padding: 5px;
-}
