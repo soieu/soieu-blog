@@ -1,0 +1,115 @@
+@import url("https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.6/dist/web/static/pretendard.css");
+
+* {
+    font-family: "Pretendard Variable", Pretendard, -apple-system, BlinkMacSystemFont, system-ui, Roboto, "Helvetica Neue", "Segoe UI", "Apple SD Gothic Neo", "Noto Sans KR", "Malgun Gothic", "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", sans-serif;
+	margin : 0px;
+	padding : 0px;
+}
+
+body {
+	padding-top: 100px;
+}
+
+header {
+	position :fixed;
+	top: 0px;
+	left: 0px;
+	right: 0px;
+	z-index: 1;
+	background-color: white;
+}
+
+input, button {
+    appearance: none;
+    border: none;
+	outline: none;
+    background: none;
+
+}
+
+input {
+
+}
+
+.main-navigation>a {
+	display: block; /* a태그는 글자성격 = inline */
+	float: left;
+	font-size: 30px;
+	font-weight: 900;
+	line-height: 80px;
+	padding: 0 30px;
+}
+
+.main-navigation>ul {
+	float: right;
+	list-style: none;
+}
+
+.main-navigation>ul li {
+	float: left;
+	padding: 0 30px;
+	line-height: 80px;
+}
+
+a:link {
+	color : black;
+	text-decoration: none;
+}
+
+a:visited {
+	color : black;
+	text-decoration: none;
+}
+
+a:hover {
+	color: rgb(168, 102, 234);
+
+}
+
+.content-container {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+}
+
+.post-content {
+	padding : 20px;
+}
+
+#new-task-form {
+    display: flex;
+}
+
+#new-task-input {
+    flex: 1 1 0%;
+    background-color: var(--darker);
+    padding: 1rem;
+    border-radius: 1rem;
+    margin-right: 1rem;
+    color: white;
+    font-size: 1.25rem;
+}
+
+#new-task-input::placeholder {
+	color: grey;
+}
+
+#new-task-submit {
+	color: pink;
+	font-size: 1.25rem;
+	font-weight: 700;
+	background-image: linear-gradient(to right, pink, purple);
+	-webkit-background-clip: text;
+	-webkit-text-fill-color: transparent;
+	cursor: pointer;
+	transition: 0.4s;
+}
+
+#new-task-submit:hover {
+	opacity: 0.8;
+}
+
+#new-task-submit:active {
+	opacity: 0.6;
+}
