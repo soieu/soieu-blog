@@ -24,3 +24,4 @@ backend: spring, mysql
 * ~~gitignore 작성~~
 * 참조하면 좋을거같음
 	* 스프링 : https://freehoon.tistory.com/97
+* useremail확인용
