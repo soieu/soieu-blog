@@ -1,16 +1,29 @@
+import Link from "next/link";
+
 export default function Header() {
   return (
-    <header className="sticky flex items-center">
-      <table className="border border-black w-full ">
+    <header className="sticky flex items-center mb-5">
+      <table className="border border-black w-full">
         <tr>
-          <td className="font-bold text-xl border border-black px-5 py-1 w-full">
-            SOIEU.
+          {/* SOIEU Column */}
+          <td className="font-bold text-xl border border-black px-5 py-2 w-full">
+            <Link href="/" className="block w-full h-full">
+              SOIEU.
+            </Link>
           </td>
-          <td className="font-bold text-base border border-black px-5 hover:bg-black hover:text-white hover:cursor-pointer">
-            TAGS
+
+          {/* TAGS Column with Link */}
+          <td className="font-black text-xs border border-black px-8 hover:bg-black hover:text-white hover:cursor-pointer">
+            <Link href="/tags" className="block w-full h-full">
+              TAGS
+            </Link>
           </td>
-          <td className="font-bold text-base border-l-px border border-black px-3 hover:bg-black hover:text-white hover:cursor-pointer">
-            ABOUT
+
+          {/* ABOUT Column with Link */}
+          <td className="font-black text-xs border-l-px border border-black px-7 hover:bg-black hover:text-white hover:cursor-pointer">
+            <Link href="/about" className="block w-full h-full">
+              ABOUT
+            </Link>
           </td>
         </tr>
       </table>
