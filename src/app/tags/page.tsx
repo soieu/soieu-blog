@@ -6,9 +6,9 @@ export default async function Tags() {
     <div className="flex flex-row">
       <div className="w-3/4 mr-5 border border-black p-5">
         <div>
-          {data?.map((post) => (
+          {/* {data?.map((post) => (
             <PostColumn data={post} key={post.id} />
-          ))}
+          ))} */}
         </div>
       </div>
       <div className="w-1/4 border border-black p-5">

@@ -20,9 +20,9 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
+    <html lang="en" className="m-0">
       <body
-        className={`${pretendard.variable} ${pretendard.variable} antialiased m-5`}
+        className={`${pretendard.variable} ${pretendard.variable} antialiased mx-7`}
       >
         <Header />
 

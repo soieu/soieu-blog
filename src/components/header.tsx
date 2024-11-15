@@ -2,9 +2,12 @@ import Link from "next/link";
 
 export default function Header() {
   return (
-    <header className="sticky top-5 flex items-center mb-5 bg-white">
-      <table className="border border-black w-full">
+    <header className="sticky flex top-0 items-center mb-5 mt-0 bg-white mx-2">
+      <table className=" w-full m-0">
         <tbody>
+          <tr className="bg-white h-5 border-white">
+            <td className="bg-white h-5 border-white"></td>
+          </tr>
           <tr>
             {/* SOIEU Column */}
             <td className="font-bold text-xl border border-black px-5 py-2 w-full">
