@@ -1,4 +1,4 @@
-import PostColumn from "@/components/post-column";
+// import PostColumn from "@/components/post-column";
 import Tag from "@/components/tag";
 
 export default async function Tags() {
