@@ -1,10 +1,19 @@
 import PostColumn from "@/components/post-column";
 import Tag from "@/components/tag";
-export default function Tags() {
+import supabase from "@/lib/supabase"; // supabase 클라이언트 가져
+
+export default async function Tags() {
+  const { data, error } = await supabase
+    .from("post") // 'post' 테이블에서 데이터 가져오기
+    .select("*");
   return (
     <div className="flex flex-row">
       <div className="w-3/4 mr-5 border border-black p-5">
-        <PostColumn />
+        <div>
+          {data?.map((post) => (
+            <PostColumn data={post} key={post.id} />
+          ))}
+        </div>
       </div>
       <div className="w-1/4 border border-black p-5">
         <input
