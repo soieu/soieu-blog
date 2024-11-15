@@ -1,3 +1,13 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+h1 {
+  @apply text-5xl font-bold pt-4 pb-8;
+}
+h2 {
+  @apply text-2xl font-bold py-4;
+}
+* {
+  @apply font-medium m-1;
+}
