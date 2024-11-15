@@ -2,7 +2,7 @@ import Link from "next/link";
 
 export default function Header() {
   return (
-    <header className="sticky flex items-center mb-5">
+    <header className="sticky top-5 flex items-center mb-5 bg-white">
       <table className="border border-black w-full">
         <tr>
           {/* SOIEU Column */}
