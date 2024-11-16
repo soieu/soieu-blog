@@ -12,7 +12,11 @@ export default function Post({ children }: { children: React.ReactNode }) {
     headers.forEach((header, index) => {
       const id = `section-${index}`;
       header.setAttribute("id", id);
-      navLinks.push(`<li><a href="#${id}">${header.textContent}</a></li>`);
+      const level = parseInt(header.tagName.substring(1), 10);
+      const padding = (level - 1) * 10;
+      navLinks.push(
+        `<li style="padding-left: ${padding}px;"><a href="#${id}">${header.textContent}</a></li>`
+      );
     });
 
     if (navRef.current) {
