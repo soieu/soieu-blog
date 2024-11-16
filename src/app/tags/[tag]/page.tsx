@@ -1,13 +1,17 @@
 import TagFilterPosts from "@/components/tag-filter-post";
 import TagTab from "@/components/tag-tab";
+type TagProps = {
+  params: Promise<{ tag: string }>;
+};
 
-export default async function Tag({ params }: { params: { tag: string } }) {
+export default async function Tag({ params }: TagProps) {
+  const resolvedParams = await params;
   return (
     <>
       <div>
         <div className="flex flex-row ">
-          <TagFilterPosts params={params} />
-          <TagTab params={params} />
+          <TagFilterPosts params={resolvedParams} />
+          <TagTab params={resolvedParams} />
         </div>
       </div>
     </>
