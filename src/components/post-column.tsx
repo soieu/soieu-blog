@@ -10,10 +10,20 @@ interface Post {
 export default function PostColumn({ post }: { post: Post }) {
   return (
     <Link href={`/${post.slug}`}>
-      <div className="border border-black w-full hover:bg-black hover:text-white hover:cursor-pointer mb-5">
+      <div className="border border-black w-full bg-white hover:bg-black hover:text-white hover:cursor-pointer mb-5">
         <div className="text-5xl font-bold p-5">{post.title}</div>
 
-        <div className="text-base text-gray-500 text-right px-5 py-2">
+        <div className="text-base text-gray-500 flex flex-row justify-between items-center px-5 py-2">
+          <div className="flex flex-row">
+            {post.tags.map((tag) => (
+              <span
+                className="border border-black rounded-full p-2 bg-black text-white font-bold m-1"
+                key={tag}
+              >
+                #{tag}
+              </span>
+            ))}
+          </div>
           {new Intl.DateTimeFormat("ko-KR", {
             year: "numeric",
             month: "2-digit",

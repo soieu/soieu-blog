@@ -20,9 +20,12 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className="m-0">
+    <html
+      lang="en"
+      className="m-0 bg-[url('/background.jpg')] bg-cover bg-center"
+    >
       <body
-        className={`${pretendard.variable} ${pretendard.variable} antialiased mx-7`}
+        className={`${pretendard.variable} ${pretendard.variable} antialiased mx-7  bg-cover bg-center`}
       >
         <Header />
 
