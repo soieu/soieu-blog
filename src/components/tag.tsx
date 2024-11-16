@@ -1,30 +1,29 @@
-"use client";
-
-import { useState } from "react";
+import Link from "next/link";
+type TagWithCount = {
+  tag: string;
+  count: number;
+};
 
 interface TagProps {
-  text: string;
+  tag: TagWithCount;
 }
 
-export default function Tag({ text }: TagProps) {
-  const [selected, setSelected] = useState(false);
-  return selected ? (
-    <span
-      onClick={() => {
-        setSelected(!selected);
-      }}
-      className="border border-black rounded-full p-2 bg-white text-black font-bold hover:bg-black hover:text-white hover:cursor-pointer m-1"
-    >
-      #{text}
-    </span>
+export default async function Tag({
+  tag,
+  params = null,
+}: TagProps & { params: { tag: string } | null }) {
+  console.log(params);
+  return params?.tag === tag.tag ? (
+    <Link href={`/tags/${tag.tag}`}>
+      <span className="border rounded-full p-2 border-black bg-black text-white font-bold hover:bg-white hover:text-black hover:cursor-pointer m-1">
+        #{tag.tag} {tag.count}
+      </span>
+    </Link>
   ) : (
-    <span
-      onClick={() => {
-        setSelected(!selected);
-      }}
-      className="border border-black rounded-full p-2 bg-black text-white font-bold hover:bg-white hover:text-black hover:cursor-pointer m-1"
-    >
-      #{text}
-    </span>
+    <Link href={`/tags/${tag.tag}`}>
+      <span className="border border-black rounded-full p-2 bg-white text-black font-bold hover:bg-black hover:text-white hover:cursor-pointer m-1">
+        #{tag.tag} {tag.count}
+      </span>
+    </Link>
   );
 }

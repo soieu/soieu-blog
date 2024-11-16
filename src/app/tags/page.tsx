@@ -1,30 +1,16 @@
-// import PostColumn from "@/components/post-column";
-import Tag from "@/components/tag";
+import TagTab from "@/components/tag-tab";
 
-export default async function Tags() {
+export default async function Tag() {
   return (
-    <div className="flex flex-row">
-      <div className="w-3/4 mr-5 border border-black p-5">
-        <div>
-          {/* {data?.map((post) => (
-            <PostColumn data={post} key={post.id} />
-          ))} */}
+    <>
+      <div>
+        <div className="flex flex-row">
+          <div className="w-3/4 mr-5 border border-black p-5">
+            태그를 선택하세요
+          </div>
+          <TagTab params={null} />
         </div>
       </div>
-      <div className="w-1/4 border border-black p-5">
-        <input
-          className="w-full border border-black p-1 px-3 outline-none mb-5"
-          placeholder="태그 검색"
-        />
-        <div className="flex flex-wrap">
-          <Tag text="hello" />
-          <Tag text="hello" />
-          <Tag text="hello" />
-          <Tag text="hello" />
-          <Tag text="hello" />
-          <Tag text="hello" />
-        </div>
-      </div>
-    </div>
+    </>
   );
 }

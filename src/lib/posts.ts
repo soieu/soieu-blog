@@ -7,6 +7,10 @@ type Post = {
   createdAt: string;
   tags: string[];
 };
+type TagWithCount = {
+  tag: string;
+  count: number;
+};
 export async function getPosts(): Promise<Post[]> {
   const postPath = path.resolve(process.cwd(), "src", "app", "(posts)");
 
@@ -24,4 +28,24 @@ export async function getPosts(): Promise<Post[]> {
   posts.sort((a, b) => +new Date(b.publishDate) - +new Date(a.publishDate));
 
   return posts;
+}
+
+export async function getTagsWithCount(): Promise<TagWithCount[]> {
+  const postList = await getPosts();
+  const tagCounts: Record<string, number> = {};
+
+  postList.forEach((post) => {
+    post.tags.forEach((tag) => {
+      tagCounts[tag] = (tagCounts[tag] || 0) + 1;
+    });
+  });
+
+  return Object.entries(tagCounts)
+    .map(([tag, count]) => ({ tag, count }))
+    .sort((a, b) => b.count - a.count);
+}
+
+export async function getPostsByTag(tag: string): Promise<Post[]> {
+  const postList = await getPosts();
+  return postList.filter((post) => post.tags.includes(tag));
 }

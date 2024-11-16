@@ -8,9 +8,8 @@ interface Post {
   tags: string[];
 }
 
-export default async function TagsPage() {
+export default async function Page() {
   const postList: Post[] = await getPosts();
-  console.log(postList);
   return (
     <div>
       {postList.map((post) => (

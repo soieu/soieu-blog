@@ -8,7 +8,6 @@ interface Post {
 }
 
 export default function PostColumn({ post }: { post: Post }) {
-  console.log(post);
   return (
     <Link href={`/${post.slug}`}>
       <div className="border border-black w-full hover:bg-black hover:text-white hover:cursor-pointer mb-5">
