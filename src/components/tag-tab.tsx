@@ -7,7 +7,7 @@ export default async function TagTab({
   params: { tag: string } | null;
 }) {
   return (
-    <div className="w-1/4 border border-black p-5 bg-white">
+    <div className="xl:w-1/4 border border-black p-5 bg-white">
       {getTagsWithCount().then((tags) =>
         tags.map((tag) => <Tag tag={tag} key={tag.tag} params={params} />)
       )}

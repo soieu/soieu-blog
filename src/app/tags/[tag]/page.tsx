@@ -9,7 +9,7 @@ export default async function Tag({ params }: TagProps) {
   return (
     <>
       <div>
-        <div className="flex flex-row ">
+        <div className="xl:flex xl:flex-row w-full flex flex-col-reverse">
           <TagFilterPosts params={resolvedParams} />
           <TagTab params={resolvedParams} />
         </div>

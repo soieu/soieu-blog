@@ -8,7 +8,7 @@ export default async function TagFilterPosts({
 }) {
   const posts = await getPostsByTag(params.tag);
   return (
-    <div className="w-3/4 mr-5  border-black p-5 ">
+    <div className="xl:w-3/4 w-full mr-5  border-black p-5 ">
       {posts.map((post) => (
         <PostColumn post={post} key={post.slug} />
       ))}
