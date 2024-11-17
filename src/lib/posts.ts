@@ -1,6 +1,6 @@
-// import { Post } from "@/types/types";
 import { readdir } from "fs/promises";
 import path from "path";
+
 type Post = {
   slug: string;
   title: string;

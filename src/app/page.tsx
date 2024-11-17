@@ -11,7 +11,7 @@ interface Post {
 export default async function Page() {
   const postList: Post[] = await getPosts();
   return (
-    <div>
+    <div className="m-0 justify-center items-start flex-row">
       {postList.map((post) => (
         <PostColumn post={post} key={post.slug} />
       ))}

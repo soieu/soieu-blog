@@ -2,7 +2,7 @@ import Link from "next/link";
 
 export default function Header() {
   return (
-    <header className="flex items-center mb-5 mt-5 bg-white mx-2">
+    <header className="flex items-center bg-white w-full mb-3 mt-5">
       <table className=" w-full m-0">
         <tbody>
           <tr>

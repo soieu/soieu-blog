@@ -9,5 +9,5 @@ h2 {
   @apply text-2xl font-bold py-4;
 }
 * {
-  @apply font-medium m-1;
+  @apply font-medium m-0 p-0;
 }
