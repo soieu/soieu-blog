@@ -11,7 +11,7 @@ export default function PostColumn({ post }: { post: Post }) {
   return (
     <Link href={`/${post.slug}`}>
       <div className="border border-black w-full bg-white hover:bg-black hover:text-white hover:cursor-pointer mb-3">
-        <div className="text-5xl p-5">{post.title}</div>
+        <div className="text-5xl font-light p-5">{post.title}</div>
 
         <div className="text-base text-gray-500 flex flex-row justify-between items-center px-5 py-2">
           <div className="flex flex-row">

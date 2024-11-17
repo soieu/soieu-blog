@@ -3,10 +3,10 @@
 @tailwind utilities;
 
 h1 {
-  @apply text-5xl font-bold pt-4 pb-8;
+  @apply text-4xl font-light pt-2 pb-4;
 }
 h2 {
-  @apply text-2xl font-bold py-4;
+  @apply text-2xl font-light py-4;
 }
 * {
   @apply font-medium m-0 p-0;
