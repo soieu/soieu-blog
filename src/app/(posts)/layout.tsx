@@ -13,15 +13,63 @@ export default function Post({ children }: { children: React.ReactNode }) {
       const id = `section-${index}`;
       header.setAttribute("id", id);
       const level = parseInt(header.tagName.substring(1), 10);
-      const padding = (level - 1) * 10;
+      let paddingClass = "";
+
+      switch (level) {
+        case 1:
+          paddingClass = "pl-0";
+          break;
+        case 2:
+          paddingClass = "pl-4";
+          break;
+        case 3:
+          paddingClass = "pl-8";
+          break;
+        case 4:
+          paddingClass = "pl-12";
+          break;
+        case 5:
+          paddingClass = "pl-16";
+          break;
+        case 6:
+          paddingClass = "pl-20";
+          break;
+        default:
+          paddingClass = "pl-0";
+      }
+
+      const fontWeight = header.tagName === "H1" ? "font-bold" : "";
       navLinks.push(
-        `<li style="padding-left: ${padding}px;"><a href="#${id}">${header.textContent}</a></li>`
+        `<li class="${paddingClass} ${fontWeight}"><a href="#${id}">${header.textContent}</a></li>`
       );
     });
 
     if (navRef.current) {
       navRef.current.innerHTML = `<ul>${navLinks.join("")}</ul>`;
     }
+
+    const handleScroll = () => {
+      let currentSection = "";
+      headers.forEach((header) => {
+        const rect = header.getBoundingClientRect();
+        if (rect.top <= 0) {
+          currentSection = header.getAttribute("id") || "";
+        }
+      });
+
+      const navItems = navRef.current?.querySelectorAll("li");
+      navItems?.forEach((item) => {
+        const link = item.querySelector("a");
+        if (link?.getAttribute("href") === `#${currentSection}`) {
+          item.classList.add("bg-yellow-200");
+        } else {
+          item.classList.remove("bg-yellow-200");
+        }
+      });
+    };
+
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
   }, [children]);
 
   return (
