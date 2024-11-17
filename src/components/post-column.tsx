@@ -17,7 +17,7 @@ export default function PostColumn({ post }: { post: Post }) {
           <div className="flex flex-row">
             {post.tags.map((tag) => (
               <span
-                className="border border-black rounded-full px-4 py-1 mr-2 bg-black text-white font-bold"
+                className="border border-black rounded-full px-4 py-1 mr-2 mb-2 bg-black text-white font-bold"
                 key={tag}
               >
                 #{tag}
