@@ -40,7 +40,7 @@ export default function Post({ children }: { children: React.ReactNode }) {
 
       const fontWeight = header.tagName === "H1" ? "font-bold" : "";
       navLinks.push(
-        `<li class="${paddingClass} ${fontWeight}"><a href="#${id}">${header.textContent}</a></li>`
+        `<li><a href="#${id}" class="block w-full ${paddingClass} ${fontWeight}">${header.textContent}</a></li>`
       );
     });
 
@@ -61,9 +61,9 @@ export default function Post({ children }: { children: React.ReactNode }) {
       navItems?.forEach((item) => {
         const link = item.querySelector("a");
         if (link?.getAttribute("href") === `#${currentSection}`) {
-          item.classList.add("bg-yellow-200");
+          link.classList.add("bg-black", "text-white");
         } else {
-          item.classList.remove("bg-yellow-200");
+          link.classList.remove("bg-black", "text-white");
         }
       });
     };
@@ -77,8 +77,8 @@ export default function Post({ children }: { children: React.ReactNode }) {
       <div className="xl:w-4/5 bg-white mr-5 border border-black p-5 w-full">
         {children}
       </div>
-      <div className="sticky top-24 xl:w-1/5 xl:block bg-white h-full border border-black p-5 hidden">
-        <div className="flex flex-wrap" ref={navRef}></div>
+      <div className="sticky top-24 xl:w-1/5 xl:block bg-white h-full border border-black hidden">
+        <nav className="w-full" ref={navRef}></nav>
       </div>
     </div>
   );

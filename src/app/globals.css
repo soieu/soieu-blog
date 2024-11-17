@@ -11,3 +11,7 @@ h2 {
 * {
   @apply font-medium m-0 p-0;
 }
+
+a {
+  @apply block w-full;
+}
