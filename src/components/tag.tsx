@@ -15,15 +15,15 @@ export default async function Tag({
   console.log(params);
   return params?.tag === tag.tag ? (
     <Link href={`/tags/${tag.tag}`}>
-      <span className="border rounded-full p-2 border-black bg-black text-white font-bold hover:bg-white hover:text-black hover:cursor-pointer m-1">
+      <p className="border rounded-full p-2 border-black bg-black text-white font-bold hover:bg-white hover:text-black hover:cursor-pointer m-1">
         # {tag.tag} {tag.count}
-      </span>
+      </p>
     </Link>
   ) : (
     <Link href={`/tags/${tag.tag}`}>
-      <span className="border border-black rounded-full p-2 m-1 bg-white text-black font-bold hover:bg-black hover:text-white hover:cursor-pointer">
+      <p className="border border-black rounded-full p-2 m-1 bg-white text-black font-bold hover:bg-black hover:text-white hover:cursor-pointer">
         # {tag.tag} {tag.count}
-      </span>
+      </p>
     </Link>
   );
 }
