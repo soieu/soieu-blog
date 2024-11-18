@@ -14,6 +14,9 @@ export default {
         background: "var(--background)",
         foreground: "var(--foreground)",
       },
+      screens: {
+        xl: "1400px",
+      },
     },
   },
   plugins: [typography],

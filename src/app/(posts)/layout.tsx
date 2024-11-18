@@ -76,9 +76,9 @@ export default function Post({ children }: { children: React.ReactNode }) {
 
   return (
     <MDXProvider components={useMDXComponents({})}>
-      <div className="flex flex-row min-h-screen overflow-visible h-full">
-        <div className="xl:w-4/5 bg-white mr-5 border border-black p-5 w-full">
-          {children}
+      <div className="flex flex-row min-h-screen h-full">
+        <div className="xl:w-4/5 bg-white mr-5 border border-black p-5 flex-grow flex flex-col h-full">
+          <article className="prose max-w-none px-5">{children}</article>
         </div>
         <div className="sticky top-24 xl:w-1/5 xl:block bg-white h-full border border-black hidden">
           <nav className="w-full" ref={navRef}></nav>
