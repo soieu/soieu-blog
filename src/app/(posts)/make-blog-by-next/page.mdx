@@ -1,0 +1,92 @@
+## 잡소리
+
+블로그를 만들어야겠다고 대학시절에도 jekyll로 몇번 만들려고하다가 결국엔 티스토리에 정착했었는데, 동기가 직접 블로그 만든 것 보고 너무 부러워서 하루만에 완성해버렸다. 물론 추가기능들까지는 앞으로도 며칠 더 걸릴 것 같긴하지만! 그래도 염원하던 블로그 만들기를 성공해서 뿌듯하다!
+
+## Next로 틀 잡기
+
+사실 동적인 기능은 필요없기 때문에, 우선 next로 틀만 만들어줘도 반 이상은 끝이다. 처음에는 supabase 연동하려고 하긴 했지만 이러다보면 로그인도 추가해야할거같아서;; 포기하고 정적 사이트로 만들기로했다.
+사이트 디자인은 awwward에서 한 사이트를 레퍼런스로 배껴왔다. [https://mooders.net/en/aboutus/](https://mooders.net/en/aboutus/) 깔끔한 디자인이라 마음에 들었다.
+
+틀은 크게 메인, 자기소개 페이지, 태그 페이지, 글 확인 페이지 총 4가지로 간단하게 짰다.
+
+## [@next/mdx](https://nextjs.org/docs/app/building-your-application/configuring/mdx)
+
+next에서 mdx를 사용할 수 있게 하는 라이브러리다. 넥스트 공식 라이브러리라서 업데이트 끊길 걱정이 없어서 좋다. 찾아본 다른 mdx 라이브러리는 가장 최신 업데이트가 6개월이라 쓰기 찝찝해서 안썼다. 아쉬운건 그 라이브러리는 한국어 자료도 어느정도 있고 공식 라이브러리보다 좀 더 간편하게 이용할 수 있다. 오히려 공식쪽이 자료가 잘 없었다.
+
+공식문서대로 하면 되긴한다. 설치하고, mdx-components.tsx 파일 만들어주고, next.config.js 수정해주고 그리고 url 이름 될 폴더 만들고 그 안에 tsx 대신 mdx 파일 넣어주면 끝
+
+mdx 파일에는 메타 데이터를
+
+```
+  export const metadata = {
+  title: "Welcome",
+  description: "Hello World Page",
+  createdAt: "2024-01-01T00:00:00Z",
+  tags: ["React", "hi"],
+};
+```
+
+위와 같은 방식으로 넣어준다. ---으로 감싸서 넣는 방법도 어떻게 하면 되긴하는데 이렇게 하는게 제일 간편하다.
+
+## fs/promises
+
+```
+import { readdir } from "fs/promises";
+import path from "path";
+
+type Post = {
+slug: string,
+title: string,
+createdAt: string,
+tags: string[],
+};
+type TagWithCount = {
+tag: string,
+count: number,
+};
+export async function getPosts(): Promise<Post[]> {
+const postPath = path.resolve(process.cwd(), "src", "app", "(posts)");
+
+const slugs = (await readdir(postPath, { withFileTypes: true })).filter(
+(dirent) => dirent.isDirectory()
+);
+
+posts.sort((a, b) => +new Date(b.publishDate) - +new Date(a.publishDate));
+
+return posts;
+}
+
+export async function getTagsWithCount(): Promise<TagWithCount[]> {
+  const postList = await getPosts();
+  const tagCounts: Record<string, number> = {};
+
+postList.forEach((post) => {
+post.tags.forEach((tag) => {
+tagCounts[tag] = (tagCounts[tag] || 0) + 1;
+});
+});
+
+return Object.entries(tagCounts)
+.map(([tag, count]) => ({ tag, count }))
+.sort((a, b) => b.count - a.count);
+}
+
+export async function getPostsByTag(tag: string): Promise<Post[]> {
+  const postList = await getPosts();
+  return postList.filter((post) => post.tags.includes(tag));
+}
+```
+
+getPosts 함수는 모든 포스트를 불러오는 함수, getTagsWithCount 태그들과 태그들의 개수를 불러오는 함수, getPostsByTag 태그별 게시글을 불러오는 함수다.
+
+메타데이터와 readdir 함수를 통해 특정 경로 안에 있는 mdx 파일들을 찾아 메타데이터를 읽고, 이 메타데이터를 활용해 각 함수들을 만들었다.
+
+## 추가기능
+
+cursor의 도움을 받아 게시글 네비게이팅 등등을 만들었당
+
+export const metadata = {
+  title: "Next 블로그 제작기",
+  createdAt: "2024-11-18T00:00:00Z",
+  tags: ["blog", "Next"],
+};
