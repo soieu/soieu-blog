@@ -1,6 +1,8 @@
 "use client";
 
 import { useEffect, useRef } from "react";
+import { MDXProvider } from "@mdx-js/react";
+import { useMDXComponents } from "../../../mdx-components";
 
 export default function Post({ children }: { children: React.ReactNode }) {
   const navRef = useRef<HTMLDivElement>(null);
@@ -63,7 +65,7 @@ export default function Post({ children }: { children: React.ReactNode }) {
         if (link?.getAttribute("href") === `#${currentSection}`) {
           link.classList.add("bg-black", "text-white");
         } else {
-          link.classList.remove("bg-black", "text-white");
+          link?.classList.remove("bg-black", "text-white");
         }
       });
     };
@@ -73,13 +75,15 @@ export default function Post({ children }: { children: React.ReactNode }) {
   }, [children]);
 
   return (
-    <div className="flex flex-row min-h-screen overflow-visible h-full">
-      <div className="xl:w-4/5 bg-white mr-5 border border-black p-5 w-full">
-        {children}
+    <MDXProvider components={useMDXComponents({})}>
+      <div className="flex flex-row min-h-screen overflow-visible h-full">
+        <div className="xl:w-4/5 bg-white mr-5 border border-black p-5 w-full">
+          {children}
+        </div>
+        <div className="sticky top-24 xl:w-1/5 xl:block bg-white h-full border border-black hidden">
+          <nav className="w-full" ref={navRef}></nav>
+        </div>
       </div>
-      <div className="sticky top-24 xl:w-1/5 xl:block bg-white h-full border border-black hidden">
-        <nav className="w-full" ref={navRef}></nav>
-      </div>
-    </div>
+    </MDXProvider>
   );
 }

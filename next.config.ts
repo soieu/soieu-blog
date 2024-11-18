@@ -1,7 +1,5 @@
 import nextMDX from "@next/mdx";
-import rehypeCodeTitles from "rehype-code-titles";
-import rehypePrism from "rehype-prism-plus";
-
+import remarkGfm from "remark-gfm";
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   // Configure `pageExtensions` to include markdown and MDX files
@@ -16,11 +14,7 @@ const nextConfig = {
 const withMDX = nextMDX({
   extension: /\.mdx?$/,
   options: {
-    remarkPlugins: [], // Add any remark plugins here if needed
-    rehypePlugins: [
-      rehypeCodeTitles, // Enables code titles
-      rehypePrism, // Adds syntax highlighting
-    ],
+    remarkPlugins: [remarkGfm],
   },
 });
 

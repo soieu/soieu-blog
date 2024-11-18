@@ -7,12 +7,10 @@ export default async function TagTab({
   params: { tag: string } | null;
 }) {
   return (
-    <div className="xl:w-1/4 border border-black p-5 bg-white mb-3 h-full">
+    <div className="xl:w-1/4 border border-black p-5 bg-white mb-3 flex flex-wrap flex-row">
       {getTagsWithCount().then((tags) =>
         tags.map((tag) => <Tag tag={tag} key={tag.tag} params={params} />)
       )}
-
-      <div className="flex flex-wrap"></div>
     </div>
   );
 }
