@@ -1,0 +1,245 @@
+## 정적 팩터리 메서드란?
+
+- **정적 팩터리 메서드**는 클래스의 인스턴스를 생성하기 위해 사용하는 **정적 메서드**
+- 일반 생성자와는 달리 **더 많은 유연성과 제어권**을 제공
+
+## 정적 팩터리 메서드의 장점
+
+### 1. **이름을 가질 수 있다**
+
+- 생성자는 이름이 클래스 이름과 같아야 하지만, 정적 팩터리 메서드는 이름을 가질 수 있다.
+- **의도를 명확히 표현**하거나 **다양한 입력 매개변수에 따른 동작을 구분**할 수 있다.
+
+```java
+class Person {
+    private final String name;
+    private final int age;
+
+    // 생성자 -> 이름 항상 고정 !!
+    public Person(String name, int age) {
+        this.name = name;
+        this.age = age;
+    }
+
+    // 정적 팩터리 메서드 -> 이름을 createWithName 등 더 명확하게 표현 가능
+    public static Person createWithName(String name) {
+        return new Person(name, 0); // 나이를 기본값 0으로 설정
+    }
+
+    public static Person createWithAge(int age) {
+        return new Person("Unknown", age); // 이름을 기본값으로 설정
+    }
+
+    @Override
+    public String toString() {
+        return "Person{name='" + name + "', age=" + age + "}";
+    }
+}
+
+public class Main {
+    public static void main(String[] args) {
+        Person person1 = Person.createWithName("Alice");
+        Person person2 = Person.createWithAge(30);
+
+        System.out.println(person1); // Person{name='Alice', age=0}
+        System.out.println(person2); // Person{name='Unknown', age=30}
+    }
+}
+```
+
+- 정적 팩터리 메서드를 통해 **매개변수에 따른 명확한 의미 부여**가 가능.
+
+### 2. **반환 타입을 자유롭게 설정 가능**
+
+- 생성자는 항상 클래스 자신을 반환하지만, 정적 팩터리 메서드는 **반환 타입을 유연하게 설정**할 수 있다.
+- 반환 타입을 인터페이스나 상위 클래스 타입으로 설정할 수 있다.
+
+```java
+import java.util.List;
+import java.util.ArrayList;
+import java.util.LinkedList;
+
+class ListFactory {
+    // 정적 팩터리 메서드: 반환 타입은 List 인터페이스
+    public static List<String> createList(boolean useArrayList) {
+        if (useArrayList) {
+            return new ArrayList<>();
+        } else {
+            return new LinkedList<>();
+        }
+    }
+}
+
+public class Main {
+    public static void main(String[] args) {
+        List<String> list1 = ListFactory.createList(true); // ArrayList 반환
+        List<String> list2 = ListFactory.createList(false); // LinkedList 반환
+
+        list1.add("Apple");
+        list2.add("Carrot");
+
+        System.out.println(list1.getClass()); // class java.util.ArrayList
+        System.out.println(list2.getClass()); // class java.util.LinkedList
+    }
+}
+
+```
+
+- 반환 타입을 `List`로 설정하여, 실제 구현 클래스에 의존하지 않고 유연성을 확보.
+
+### 3. **인스턴스를 새로 생성하지 않아도 된다**
+
+- 정적 팩터리 메서드는 항상 새로운 인스턴스를 생성할 필요가 없다.
+- 필요한 경우, **미리 생성된 인스턴스를 반환하거나, 캐싱된 인스턴스를 재사용**할 수 있다.
+- **불변 객체**와 **상수 객체**의 경우 특히 유용하다.
+
+[**예시:Boolean 클래스**](https://github.com/openjdk-mirror/jdk7u-jdk/blob/master/src/share/classes/java/lang/Boolean.java)
+
+`java.lang.Boolean` 클래스는 불변 객체를 재사용하기 위해 정적 팩터리 메서드 `valueOf`를 사용한다.
+
+```java
+public final class Boolean implements java.io.Serializable, Comparable<Boolean> {
+    public static final Boolean TRUE = new Boolean(true);
+    public static final Boolean FALSE = new Boolean(false);
+
+    public static Boolean valueOf(boolean b) {
+        return (b ? TRUE : FALSE); // 미리 정의된 상수 반환
+    }
+}
+
+```
+
+```java
+public class Main {
+    public static void main(String[] args) {
+        Boolean b1 = Boolean.valueOf(true);
+        Boolean b2 = Boolean.valueOf(true);
+
+        System.out.println(b1 == b2); // true, 동일한 객체를 재사용
+    }
+}
+
+```
+
+- `Boolean.valueOf`는 동일한 `Boolean` 객체를 반환하므로, **불필요한 객체 생성을 방지**하여 성능과 메모리 사용을 최적화.
+
+### 4. **서브클래스 객체를 반환할 수 있다**
+
+- 정적 팩터리 메서드는 반환 타입으로 **서브클래스의 인스턴스를 반환**할 수 있다.
+- 클라이언트는 구현 세부 사항을 알 필요 없이 객체를 사용할 수 있다.
+
+```java
+abstract class Shape {
+    public abstract void draw();
+}
+
+class Circle extends Shape {
+    @Override
+    public void draw() {
+        System.out.println("Drawing a Circle");
+    }
+}
+
+class Rectangle extends Shape {
+    @Override
+    public void draw() {
+        System.out.println("Drawing a Rectangle");
+    }
+}
+
+class ShapeFactory {
+    public static Shape createShape(String type) {
+        if (type.equalsIgnoreCase("circle")) {
+            return new Circle();
+        } else if (type.equalsIgnoreCase("rectangle")) {
+            return new Rectangle();
+        } else {
+            throw new IllegalArgumentException("Unknown shape type");
+        }
+    }
+}
+
+public class Main {
+    public static void main(String[] args) {
+        Shape shape1 = ShapeFactory.createShape("circle");
+        Shape shape2 = ShapeFactory.createShape("rectangle");
+
+        shape1.draw(); // Drawing a Circle
+        shape2.draw(); // Drawing a Rectangle
+    }
+}
+
+```
+
+- 클라이언트는 `Shape` 인터페이스를 통해 객체를 사용하며, 구체적인 구현 세부 사항은 숨겨진다.
+
+### 5. **매개변수화된 타입 객체를 반환 가능**
+
+- 정적 팩터리 메서드는 **제네릭 타입**을 활용하여 매개변수화된 타입 객체를 생성하고 반환할 수 있다.
+
+```java
+class GenericFactory {
+    public static <T> List<T> createList() {
+        return new ArrayList<>();
+    }
+}
+
+public class Main {
+    public static void main(String[] args) {
+        List<String> stringList = GenericFactory.createList();
+        List<Integer> intList = GenericFactory.createList();
+
+        stringList.add("Hello");
+        intList.add(123);
+
+        System.out.println(stringList); // [Hello]
+        System.out.println(intList);    // [123]
+    }
+}
+```
+
+- 제네릭 메서드를 사용하여 타입 안정성을 보장.
+
+### 6. **클래스 외부에서는 사용할 수 없는 객체 반환 가능**
+
+- 정적 팩터리 메서드를 통해 **외부에서 접근 불가능한 객체를 반환**할 수 있다.
+- 구현 세부 사항을 캡슐화하고, 클래스 설계를 유연하게 만든다.
+
+```java
+java
+코드 복사
+interface Animal {
+    void sound();
+}
+
+class Dog implements Animal {
+    @Override
+    public void sound() {
+        System.out.println("Bark");
+    }
+}
+
+class AnimalFactory {
+    private AnimalFactory() {} // 생성자를 private으로 숨김
+
+    public static Animal createDog() {
+        return new Dog();
+    }
+}
+
+public class Main {
+    public static void main(String[] args) {
+        Animal dog = AnimalFactory.createDog();
+        dog.sound(); // Bark
+    }
+}
+
+```
+
+- `AnimalFactory`는 `Dog` 객체를 반환하지만, `Dog` 클래스는 외부에 노출되지 않는다.
+
+export const metadata = {
+  title: "ITEM1. 생성자 대신 정적 팩터리 메서드를 고려하라",
+  createdAt: "2024-11-19T12:00:00Z",
+  tags: ["JAVA", "EFFECTIVE JAVA"],
+};
