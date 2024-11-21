@@ -1,0 +1,147 @@
+# ITEM3. private 생성자나 열거 타입(enum)으로 싱글턴임을 보장하라
+
+싱글턴(Singleton) 패턴이란?
+싱글턴은 클래스의 인스턴스를 오직 하나만 생성하고, 해당 인스턴스에 전역적으로 접근할 수 있도록 보장하는 디자인 패턴이다. 특정 클래스의 객체가 유일해야 하는 상황에서 사용된다.
+
+## 싱글턴 구현 방식
+
+### 1. private 생성자와 public static 필드
+
+이 방식은 싱글턴 객체를 정적 필드로 미리 생성해두고, 이 객체를 반환하는 방식이다. 생성자를 private으로 숨겨 외부에서 새로운 객체를 생성할 수 없도록 제한한다.
+
+```java
+class Singleton {
+    // 유일한 인스턴스를 static final로 선언
+    public static final Singleton INSTANCE = new Singleton();
+
+    // private 생성자: 외부에서 객체 생성 불가
+    private Singleton() {}
+
+    public void showMessage() {
+        System.out.println("Hello, Singleton!");
+    }
+}
+
+public class Main {
+    public static void main(String[] args) {
+        // 유일한 인스턴스 사용
+        Singleton singleton1 = Singleton.INSTANCE;
+        Singleton singleton2 = Singleton.INSTANCE;
+
+        System.out.println(singleton1 == singleton2); // true
+        singleton1.showMessage(); // Hello, Singleton!
+    }
+}
+```
+
+- 초기화 시점: 클래스 로드 시점에 인스턴스를 생성한다.
+- 간결함: 코드가 간단하고 직관적이다.
+- 단점: 클래스가 로드될 때 인스턴스를 생성하므로, 객체 생성 비용이 크거나 애플리케이션에서 사용되지 않을 경우 비효율적일 수 있다.
+
+### 2. private 생성자와 정적 팩터리 메서드
+
+이 방식에서는 객체 생성을 private 생성자로 제한하고, 정적 팩터리 메서드를 통해 유일한 인스턴스를 반환한다.
+
+```java
+class Singleton {
+    // 유일한 인스턴스
+    private static final Singleton INSTANCE = new Singleton();
+
+    // private 생성자: 외부에서 객체 생성 불가
+    private Singleton() {}
+
+    // 정적 팩터리 메서드
+    public static Singleton getInstance() {
+        return INSTANCE;
+    }
+
+    public void showMessage() {
+        System.out.println("Hello, Singleton!");
+    }
+}
+
+public class Main {
+    public static void main(String[] args) {
+        // 정적 팩터리 메서드를 통해 인스턴스 사용
+        Singleton singleton1 = Singleton.getInstance();
+        Singleton singleton2 = Singleton.getInstance();
+
+        System.out.println(singleton1 == singleton2); // true
+        singleton1.showMessage(); // Hello, Singleton!
+    }
+}
+```
+
+- 지연 초기화 가능: 필요에 따라 객체를 생성하는 방식으로 변경 가능하다.
+- 변경 용이: 정적 팩터리 메서드 내부에서 생성 방식(예: 객체 풀, 캐싱)을 유연하게 변경할 수 있다.
+
+### 3. 싱글턴을 열거 타입(enum)으로 구현
+
+열거 타입(enum)을 사용하면 가장 간결하고 안전하게 싱글턴을 구현할 수 있다. 자바의 열거 타입은 본질적으로 싱글턴이므로, 직렬화와 리플렉션에 의한 공격에도 안전하다.
+
+```java
+public enum Singleton {
+    INSTANCE;
+
+    public void showMessage() {
+        System.out.println("Hello, Singleton with Enum!");
+    }
+}
+
+public class Main {
+    public static void main(String[] args) {
+        Singleton singleton1 = Singleton.INSTANCE;
+        Singleton singleton2 = Singleton.INSTANCE;
+
+        System.out.println(singleton1 == singleton2); // true
+        singleton1.showMessage(); // Hello, Singleton with Enum!
+    }
+}
+```
+
+- 안전성: 자바의 enum은 JVM 차원에서 싱글턴을 보장하며, 리플렉션이나 직렬화로부터 안전하다.
+- 간결함: 코드가 매우 간단하고 가독성이 높다.
+
+## 싱글턴 패턴 사용 시 주의사항
+
+### 멀티스레드 환경에서 안전성 보장:
+
+위의 모든 구현 방식은 자바에서 스레드 안전성을 기본적으로 보장한다.
+특히, 정적 팩터리 메서드를 사용한 방식에서는 **lazy initialization (지연 초기화)**를 구현할 경우 추가적인 동기화 처리가 필요할 수 있다.
+
+### 직렬화와 리플렉션 공격 방지:
+
+기본적인 private 생성자 방식은 직렬화와 리플렉션 공격에 취약할 수 있으므로, readResolve 메서드를 통해 이를 방지하거나 enum 방식을 사용하는 것이 안전하다.
+
+```java
+// readResolve를 사용한 직렬화 안전 구현
+private Object readResolve() {
+    return INSTANCE; // 새로운 객체가 생성되지 않도록 함
+}
+```
+
+## 싱글턴 패턴의 활용 예시
+
+### Runtime 클래스:
+
+자바의 java.lang.Runtime 클래스는 싱글턴으로 구현되어 있다. 애플리케이션 전체에서 하나의 Runtime 인스턴스만 존재한다.
+
+```java
+Runtime runtime1 = Runtime.getRuntime();
+Runtime runtime2 = Runtime.getRuntime();
+System.out.println(runtime1 == runtime2); // true
+```
+
+### Logging 클래스:
+
+로그를 기록하는 클래스는 애플리케이션 전역에서 하나의 인스턴스만 필요하므로, 싱글턴으로 구현되는 경우가 많다.
+
+### Thread Pool, Database Connection Pool:
+
+리소스를 관리하는 객체들은 싱글턴으로 구현되어야 관리가 용이하다.
+
+export const metadata = {
+  title: "ITEM3. private 생성자나 열거 타입(enum)으로 싱글턴임을 보장하라",
+  createdAt: "2024-11-21T21:32:00Z",
+  tags: ["Java", "Effective-Java"],
+};
