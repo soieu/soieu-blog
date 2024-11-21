@@ -138,7 +138,7 @@ export default function About() {
       <div className="my-5 border border-black p-5 ">
         <p className="text-4xl">Portfolio</p>
         <p className="mt-4">
-          <Link href="https://docs.google.com/presentation/d/1VxPD3ltkxd215ddT1USfgUq3hRXivbPZ/edit?usp=drive_link&ouid=112660211322375920313&rtpof=true&sd=true">
+          <Link href="https://docs.google.com/presentation/d/e/2PACX-1vSO56Kq7L-xqfdJf7JcbItbmcYI04udP0vFxblMDruhIt47YQffH5m3CF2RY2HG-g/pub?start=false&loop=false&delayms=3000">
             포트폴리오 링크
           </Link>
         </p>
