@@ -6,44 +6,44 @@ import Link from "next/link";
 export default function About() {
   return (
     <div>
-      <div className="flex flex-row items-center justify-center">
-        <div className="border border-black mr-2 p-5">
-          <p className="text-4xl pb-5">
+      <div className="flex flex-col-reverse xl:flex-row items-center justify-center ">
+        <div className="border border-black mt-5 xl:mt-0 xl:mr-2 p-5 w-full">
+          <p className="text-2xl xl:text-4xl pb-5">
             안녕하세요 ! 개발자 <span className="font-bold">박소영</span>입니다.
           </p>
-          <p className="text-2xl bg-black text-white p-2">
+          <p className="text-lg xl:text-2xl bg-black text-white p-2">
             소통을 통한 학습을 좋아하는 개발자입니다.
           </p>
-          <p className="text-lg">
+          <p className="text-base xl:text-lg">
             학습할 때 직접 스터디를 조직하고 이끌며, 서로의 지식을 공유하는
             과정을 중요하게 생각합니다. 저는 다양한 관점을 배우고, 이를 통해
             더욱 깊이 있는 이해를 쌓는 것을 즐깁니다. 특히, 스터디에서의 논의와
             피드백을 통해 동료들과 함께 성장하며 개발에 대한 통찰을 넓혀가는 데
             큰 보람을 느낍니다.
           </p>
-          <p className="text-2xl mt-5 bg-black text-white p-2">
+          <p className="text-base xl:text-lg mt-5 bg-black text-white p-2">
             백엔드를 중심으로, 프론트엔드 학습도 진행하고있습니다.
           </p>
-          <p className="text-lg">
+          <p className="text-base xl:text-lg">
             스프링 프레임워크를 중점으로 프로젝트를 구현하며, 프론트엔드와의
             원활한 소통을 위해 Next.js를 학습하고 있습니다. 백엔드와 프론트엔드
             간의 효율적인 협업은 서비스 개발의 중요한 요소라고 생각하며, 이를
             위해 기술적 이해를 넓히고 있습니다.
           </p>
-          <p className="text-2xl mt-5 bg-black text-white p-2">
+          <p className="text-base xl:text-lg mt-5 bg-black text-white p-2">
             개발이란 작게는 나를 위한 것, 더 나아가서는 모두를 위한 것이라는
             생각을 가지고 있습니다.
           </p>
-          <p className="text-lg">
+          <p className="text-base xl:text-lg">
             제가 개발하는 모든 서비스와 기능은 사용자에게 실질적인 가치를
             제공하는것이 목표입니다. 이러한 생각은 단순한 기술 구현을 넘어, 더
             나은 삶을 만들어가는 데 기여할 수 있는 개발에 대한 원동력이 되고
             있습니다. 앞으로도 이러한 생각을 바탕으로 작게는 개인의 일상을,
             크게는 모두의 일상을 변화시킬 수 있는 개발자로 성장하고자 합니다.
           </p>
-          <p className="text-lg"></p>
-          <p className="text-lg"></p>
-          <p className="text-lg"></p>
+          <p className="text-base xl:text-lg"></p>
+          <p className="text-base xl:text-lg"></p>
+          <p className="text-base xl:text-lg"></p>
         </div>
         <div className="border border-black p-2">
           <div className=" bg-[url('/profile-image.png')] bg-cover bg-center h-80 w-80">
