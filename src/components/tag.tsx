@@ -12,7 +12,6 @@ export default async function Tag({
   tag,
   params = null,
 }: TagProps & { params: { tag: string } | null }) {
-  console.log(params);
   return params?.tag === tag.tag ? (
     <Link href={`/tags/${tag.tag}`}>
       <p className="border rounded-full p-2 border-black bg-black text-white font-bold hover:bg-white hover:text-black hover:cursor-pointer m-1 text-xs xl:text-base">
