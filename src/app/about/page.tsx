@@ -1,12 +1,15 @@
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faEnvelope, faGlobe } from "@fortawesome/free-solid-svg-icons";
-import { faGithub } from "@fortawesome/free-brands-svg-icons";
+// import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+// import { faEnvelope, faGlobe } from "@fortawesome/free-solid-svg-icons";
+// import { faGithub } from "@fortawesome/free-brands-svg-icons";
 import Link from "next/link";
 
 export default function About() {
   return (
     <div>
-      <div className="flex flex-col-reverse xl:flex-row items-center justify-center ">
+      <Link href="https://maroon-office-dea.notion.site/147b48b65b968068ada8c8032b6e0e0c?pvs=4">
+        🔗 이력서 등
+      </Link>
+      {/* <div className="flex flex-col-reverse xl:flex-row items-center justify-center ">
         <div className="border border-black mt-5 xl:mt-0 xl:mr-2 p-5 w-full">
           <p className="text-2xl xl:text-4xl pb-5">
             안녕하세요 ! 개발자 <span className="font-bold">박소영</span>입니다.
@@ -142,7 +145,7 @@ export default function About() {
             포트폴리오 링크
           </Link>
         </p>
-      </div>
+      </div> */}
     </div>
   );
 }
